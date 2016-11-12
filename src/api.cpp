@@ -65,11 +65,11 @@ namespace LightGBM {
   Booster::~Booster() {
   }
 
-  bool Booster::TrainOneIter() {
-    return boosting_->TrainOneIter(nullptr, nullptr, false);
+  bool Booster::TrainOneIter(bool is_eval) {
+    return boosting_->TrainOneIter(nullptr, nullptr, is_eval);
   }
 
-  bool Booster::TrainOneIter(const float* gradients, const float* hessians) {
+  bool Booster::TrainOneIter(const float* gradients, const float* hessians, bool is_eval) {
     return boosting_->TrainOneIter(gradients, hessians, false);
   }
 
