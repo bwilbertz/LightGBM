@@ -64,9 +64,9 @@ public:
 
   virtual ~Booster();
 
-  bool TrainOneIter();
+  bool TrainOneIter(bool is_eval = false);
 
-  bool TrainOneIter(const float* gradients, const float* hessians);
+  bool TrainOneIter(const float* gradients, const float* hessians, bool is_eval = false);
 
   void PrepareForPrediction(int num_used_model, int predict_type);
 
