@@ -394,26 +394,6 @@ DllExport int LGBM_BoosterSaveModel(BoosterHandle handle,
 
 
 
-// some help functions used to convert data
-
-std::function<std::vector<double>(int row_idx)>
-RowFunctionFromDenseMatric(const void* data, int num_row, int num_col, int data_type, int is_row_major);
-
-std::function<std::vector<std::pair<int, double>>(int row_idx)>
-RowPairFunctionFromDenseMatric(const void* data, int num_row, int num_col, int data_type, int is_row_major);
-
-std::function<std::vector<std::pair<int, double>>(int idx)>
-RowFunctionFromCSR(const void* indptr, int indptr_type, const int32_t* indices, 
-  const void* data, int data_type, int64_t nindptr, int64_t nelem);
-
-std::function<std::vector<std::pair<int, double>>(int idx)>
-ColumnFunctionFromCSC(const void* col_ptr, int col_ptr_type, const int32_t* indices, 
-  const void* data, int data_type, int64_t ncol_ptr, int64_t nelem);
-
-std::vector<double> 
-SampleFromOneColumn(const std::vector<std::pair<int, double>>& data, const std::vector<size_t>& indices);
-
-
 // exception handle and error msg
 
 static std::string& LastErrorMsg() { static std::string err_msg("Everything is fine"); return err_msg; }

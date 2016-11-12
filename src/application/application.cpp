@@ -9,8 +9,7 @@
 #include <LightGBM/boosting.h>
 #include <LightGBM/objective_function.h>
 #include <LightGBM/metric.h>
-
-#include "predictor.hpp"
+#include <LightGBM/predictor.hpp>
 
 #include <omp.h>
 
