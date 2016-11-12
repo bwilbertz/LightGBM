@@ -10,8 +10,7 @@
 #include <LightGBM/objective_function.h>
 #include <LightGBM/prediction_early_stop.h>
 #include <LightGBM/metric.h>
-
-#include "predictor.hpp"
+#include <LightGBM/predictor.hpp>
 
 #include <LightGBM/utils/openmp_wrapper.h>
 

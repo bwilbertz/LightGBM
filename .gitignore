@@ -377,3 +377,4 @@ lightgbm.model
 
 # VSCode
 .vscode
+/lightgbm.bin
