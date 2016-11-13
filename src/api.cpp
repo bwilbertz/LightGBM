@@ -14,11 +14,27 @@
 namespace LightGBM {
 
   Booster::Booster(const Dataset* train_data,
-     std::vector<const Dataset*> valid_data,
-     std::vector<std::string> valid_names,
-     const char* parameters)
-     :train_data_(train_data), valid_datas_(valid_data) {
-     config_.LoadFromString(parameters);
+    std::vector<const Dataset*> valid_data,
+    std::vector<std::string> valid_names,
+    const char* parameters)
+    :train_data_(train_data), valid_datas_(valid_data) {
+    config_.LoadFromString(parameters);
+    Init(train_data, valid_data, valid_names);
+  }
+  
+  Booster::Booster(const Dataset* train_data,
+    std::vector<const Dataset*> valid_data,
+    std::vector<std::string> valid_names,
+    std::unordered_map<std::string, std::string>& params)
+    :train_data_(train_data), valid_datas_(valid_data) {
+    ParameterAlias::KeyAliasTransform(&params);
+    config_.Set(params);
+    Init(train_data, valid_data, valid_names);
+  }
+   
+  void Booster::Init(const Dataset* train_data,
+      std::vector<const Dataset*> valid_data,
+      std::vector<std::string> valid_names) {  
      // create boosting
      if (config_.io_config.input_model.size() > 0) {
        Log::Warning("continued train from model is not support for c_api, \
