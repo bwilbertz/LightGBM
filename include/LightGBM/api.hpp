@@ -62,7 +62,16 @@ public:
     std::vector<std::string> valid_names,
     const char* parameters);
 
+  explicit Booster(const Dataset* train_data,
+    std::vector<const Dataset*> valid_data,
+    std::vector<std::string> valid_names,
+    std::unordered_map<std::string, std::string>& params);
+
+
   virtual ~Booster();
+
+  void Init(const Dataset* train_data, std::vector<const Dataset*> valid_data,
+        std::vector<std::string> valid_names);
 
   bool TrainOneIter(bool is_eval = false);
 
