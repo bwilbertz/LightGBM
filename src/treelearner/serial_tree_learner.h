@@ -28,7 +28,7 @@ class SerialTreeLearner: public TreeLearner {
 public:
   explicit SerialTreeLearner(const TreeConfig& tree_config);
 
-  ~SerialTreeLearner();
+  virtual ~SerialTreeLearner();
 
   void Init(const Dataset* train_data) override;
 
