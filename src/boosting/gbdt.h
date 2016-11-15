@@ -228,7 +228,7 @@ protected:
   *   \brief Sigmoid parameter, used for prediction.
   *          if > 0 meas output score will transform by sigmoid function
   */
-  double sigmoid_;
+  double sigmoid_ = 1.0;
   /*! \brief Index of label column */
   data_size_t label_idx_;
   /*! \brief Saved number of models */
