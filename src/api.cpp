@@ -239,7 +239,7 @@ DllExport Dataset* CreateDatasetFromCSC(const void* col_ptr,
   auto get_col_fun = ColumnFunctionFromCSC(col_ptr, col_ptr_type, indices, data, data_type, ncol_ptr, nelem);
   int32_t nrow = static_cast<int32_t>(num_row);
   if (reference == nullptr) {
-    Log::Warning("Construct from CSC format is not efficient");
+    Log::Info("Construct from CSC format is not efficient");
     // sample data first
     Random rand(config.io_config.data_random_seed);
     const int sample_cnt = static_cast<int>(nrow < config.io_config.bin_construct_sample_cnt ? nrow : config.io_config.bin_construct_sample_cnt);
@@ -350,7 +350,7 @@ RowFunctionFromCSR(const void* indptr, int indptr_type, const int32_t* indices, 
         int64_t start = ptr_indptr[idx];
         int64_t end = ptr_indptr[idx + 1];
         CHECK(start >= 0 && end <= nelem);
-        for (int64_t i = start; i <= end; ++i) {
+        for (int64_t i = start; i < end; ++i) {
           ret.emplace_back(indices[i], data_ptr[i]);
         }
         return ret;
@@ -363,7 +363,7 @@ RowFunctionFromCSR(const void* indptr, int indptr_type, const int32_t* indices, 
         int64_t start = ptr_indptr[idx];
         int64_t end = ptr_indptr[idx + 1];
         CHECK(start >= 0 && end <= nelem);
-        for (int64_t i = start; i <= end; ++i) {
+        for (int64_t i = start; i < end; ++i) {
           ret.emplace_back(indices[i], data_ptr[i]);
         }
         return ret;
@@ -381,7 +381,7 @@ RowFunctionFromCSR(const void* indptr, int indptr_type, const int32_t* indices, 
         int64_t start = ptr_indptr[idx];
         int64_t end = ptr_indptr[idx + 1];
         CHECK(start >= 0 && end <= nelem);
-        for (int64_t i = start; i <= end; ++i) {
+        for (int64_t i = start; i < end; ++i) {
           ret.emplace_back(indices[i], data_ptr[i]);
         }
         return ret;
@@ -394,7 +394,7 @@ RowFunctionFromCSR(const void* indptr, int indptr_type, const int32_t* indices, 
         int64_t start = ptr_indptr[idx];
         int64_t end = ptr_indptr[idx + 1];
         CHECK(start >= 0 && end <= nelem);
-        for (int64_t i = start; i <= end; ++i) {
+        for (int64_t i = start; i < end; ++i) {
           ret.emplace_back(indices[i], data_ptr[i]);
         }
         return ret;
