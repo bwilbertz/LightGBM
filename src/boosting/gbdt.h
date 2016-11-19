@@ -136,6 +136,7 @@ public:
   */
   inline void SetNumUsedModel(int num_used_model) {
     if (num_used_model >= 0) {
+      CHECK((size_t)num_used_model <= models_.size());
       num_used_model_ = static_cast<int>(num_used_model / num_class_);
     } else {
       num_used_model_ = static_cast<int>(models_.size()) / num_class_;

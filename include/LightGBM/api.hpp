@@ -91,6 +91,8 @@ public:
 
   const inline int NumberOfClasses() const { return boosting_->NumberOfClasses(); }
 
+  const inline int NumberOfSubModels() const { return boosting_->NumberOfSubModels(); }
+
 private:
 
   std::unique_ptr<Boosting> boosting_;
