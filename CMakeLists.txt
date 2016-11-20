@@ -13,6 +13,12 @@ else()
   ADD_DEFINITIONS(-DUSE_SOCKET)
 endif()
 
+OPTION(USE_NO_NETWORK "Disable network code" OFF)
+
+if(USE_NO_NETWORK)
+	ADD_DEFINITIONS(-DNO_NETWORK)
+endif()
+
 if(UNIX)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fopenmp  -pthread -O2 -std=c++11")
 endif()

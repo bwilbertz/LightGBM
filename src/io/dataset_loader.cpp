@@ -3,7 +3,9 @@
 #include <LightGBM/utils/log.h>
 #include <LightGBM/dataset_loader.h>
 #include <LightGBM/feature.h>
+#ifndef NO_NETWORK
 #include <LightGBM/network.h>
+#endif
 
 
 namespace LightGBM {
@@ -134,6 +136,11 @@ void DatasetLoader::SetHeader(const char* filename) {
   }
 }
 
+#ifdef NO_NETWORK
+Dataset* DatasetLoader::LoadFromFile(const char* filename, int rank, int num_machines) {
+  Log::Fatal("LightGBM was not compiled with network support");
+}
+#else
 Dataset* DatasetLoader::LoadFromFile(const char* filename, int rank, int num_machines) {
   // don't support query id in data file when training in parallel
   if (num_machines > 1 && !io_config_.is_pre_partition) {
@@ -195,7 +202,7 @@ Dataset* DatasetLoader::LoadFromFile(const char* filename, int rank, int num_mac
   CheckDataset(dataset.get());
   return dataset.release();
 }
-
+#endif
 
 
 Dataset* DatasetLoader::LoadFromFileAlignWithOtherDataset(const char* filename, const Dataset* train_data) {
@@ -571,6 +578,11 @@ std::vector<std::string> DatasetLoader::SampleTextDataFromFile(const char* filen
   return out_data;
 }
 
+#ifdef NO_NETWORK
+void DatasetLoader::ConstructBinMappersFromTextData(int rank, int num_machines, const std::vector<std::string>& sample_data, const Parser* parser, Dataset* dataset) {
+  Log::Fatal("LightGBM was not compiled with network support");
+}
+#else
 void DatasetLoader::ConstructBinMappersFromTextData(int rank, int num_machines, const std::vector<std::string>& sample_data, const Parser* parser, Dataset* dataset) {
   // sample_values[i][j], means the value of j-th sample on i-th feature
   std::vector<std::vector<double>> sample_values;
@@ -710,6 +722,7 @@ void DatasetLoader::ConstructBinMappersFromTextData(int rank, int num_machines, 
   dataset->features_.shrink_to_fit();
   dataset->num_features_ = static_cast<int>(dataset->features_.size());
 }
+#endif
 
 /*! \brief Extract local features from memory */
 void DatasetLoader::ExtractFeaturesFromMemory(std::vector<std::string>& text_data, const Parser* parser, Dataset* dataset) {
