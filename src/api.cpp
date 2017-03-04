@@ -34,7 +34,10 @@ namespace LightGBM {
    
   void Booster::Init(const Dataset* train_data,
       std::vector<const Dataset*> valid_data,
-      std::vector<std::string> valid_names) {  
+      std::vector<std::string> valid_names) {
+     if (config_.num_threads > 0) {
+       omp_set_num_threads(config_.num_threads);
+     }
      // create boosting
      if (config_.io_config.input_model.size() > 0) {
        Log::Warning("continued train from model is not support for c_api, \
